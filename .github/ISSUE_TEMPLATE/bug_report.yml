@@ -1,0 +1,80 @@
+name: Bug report
+description: Something in Conduit doesn't work as it should
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. A small .blend that shows the problem is the fastest way to a fix: zip it and drag it into the last box.
+  - type: input
+    id: conduit-version
+    attributes:
+      label: Conduit version
+      description: Shown in Edit > Preferences > Add-ons > Conduit.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: blender-version
+    attributes:
+      label: Blender version
+      description: Shown in Help > About.
+      placeholder: "5.2.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where in Conduit
+      options:
+        - Hang
+        - Fan
+        - Draw
+        - Drop
+        - Harness
+        - Ends / Break Out
+        - Fittings & Clips
+        - Finalize (bake)
+        - Profiles / Library
+        - Preferences
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Add a Hang layer and place two anchors
+        2. Set the profile to Wire Harness
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: errors
+    attributes:
+      label: Error messages
+      description: On Windows, Window > Toggle System Console shows Python errors. Paste anything that starts with "Traceback".
+      render: text
+  - type: textarea
+    id: files
+    attributes:
+      label: Screenshots or .blend
+      description: Drag files in. GitHub takes a .blend only inside a .zip.
