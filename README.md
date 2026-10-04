@@ -64,8 +64,9 @@ Options:
 1. **Add Main** places a hub empty at the 3D cursor, or **Set Selected** uses any empty you
    select — a hang anchor included, to branch a fan off a chain.
 2. **Pick Face** and click a face: target anchors are scattered across it.
-   Scroll to change the count while picking. **Add Targets** picks another face
-   without losing the first.
+   While you hover, the face lights up and white dots show where the targets
+   will land, sized to your Resolution Scale. Scroll to change the count while
+   picking. **Add Targets** picks another face without losing the first.
 3. **Generate Fan Cables**. Slack is randomised between **Min** and **Max**.
 
 Dragging the hub or any target rebuilds the fan live.
