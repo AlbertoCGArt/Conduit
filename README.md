@@ -18,7 +18,8 @@ sold at [3dartstuff.com/conduit](https://3dartstuff.com/conduit).
 2. Enable **Conduit**.
 3. The panel is in the 3D viewport sidebar (`N`), under the **Conduit** tab.
 
-Needs **Blender 4.5 LTS or newer**.
+Needs **Blender 4.5 LTS or newer**. Every release is tested on 4.5 LTS and on
+the newest Blender.
 
 ## The four cable modes
 
@@ -33,7 +34,8 @@ A catenary between two or more anchor empties, with slack.
 1. **Place Anchors** creates a starting pair, or **Pick** places anchors
    directly on a vertex, edge or face of your geometry (they stick to it).
 2. Move the anchors, then **Generate Cable**. From then on, dragging an anchor
-   or changing a setting rebuilds the cable live.
+   or changing a setting rebuilds the cable live. If two anchors of a span sit
+   in the same place, Generate names them: that span has no length to show.
 3. **Add Point** inserts an anchor between two selected ones. On an A to B
    layer with one cable, that cable becomes a chain through all three; with
    several, set **Spans** to **Chain** first.
@@ -87,10 +89,12 @@ overwritten.
 For cable that has come down from a ceiling point and piled up on the floor.
 
 1. Snap the 3D cursor to a ceiling face (`Shift+S`), then **Ceiling from Cursor**.
-2. Pick the **Floor** mesh. Landings raycast against that mesh only.
+2. Pick the **Floor** mesh. Landings raycast against that mesh only, from the
+   ceiling point down, so the floor has to be below it.
 3. Set **Cables** and **Spread**, then **Place Landings**. Drag any landing to
    steer that one cable; **Reseed** rerolls them all.
-4. **Generate Drop Cables**.
+4. **Generate Drop Cables**. A landing dragged up to or above the ceiling has
+   nowhere to fall to: that cable is left out, and Generate says how many were.
 
 Shape: **Fall Bow** (waver on the way down), **Floor Bend** (how widely it
 curls over on landing), **Sprawl Min/Max** (how far it runs once down),
@@ -107,7 +111,9 @@ boxed in.
   objects instead — select a few props and click it. A bevelled curve (a
   pipe) counts; a curve with no bevel is a line and is ignored. A pipe with
   no end caps still counts as solid. A room you are *inside* is
-  recognised as a room, not a crate to be pushed out of.
+  recognised as a room, not a crate to be pushed out of. Delete a collider
+  and it is gone from the list for good — a new object that takes its name
+  is not picked up.
 - **Avoid Crossings** keeps floor runs from passing through each other.
 - **One cable that differs**: click a cable, **Override Selected Cable**, and
   the profile block edits just that cable. **Edit Every Other Cable** goes back.
@@ -179,7 +185,8 @@ once.
   **Grommet**, or any object of your own. It sits on the anchor facing out
   along the cable and scales with cable thickness, so one fitting works for
   every cable. **Inset** makes the cable enter the fitting instead of stopping
-  at its face.
+  at its face, in every mode. On a cable too short for it, the inset is
+  shortened to fit, and Generate (Rebuild Cable on the Draw tab) tells you.
 - **Clip** repeated along the cable. A hanging span is held at its anchors, so
   that's where clips go. **Spacing** is for cable that rests on something — a
   drawn stroke or a drop's floor run — and clips lie flat against that surface.
@@ -198,6 +205,10 @@ Full before the final render. The bake uses its own settings and never this.
 A harness is light at Full anyway: its rings go where the cable bends, sags
 or twists, not every few millimetres along it.
 
+Past about half a million faces the count turns red and Generate warns you.
+The cable is still built in full — nothing is coarsened behind your back —
+so lower the detail, or split a very long run into shorter ones.
+
 ## Finalize — bake to mesh
 
 Turns a layer into a mesh for export.
@@ -212,6 +223,8 @@ Turns a layer into a mesh for export.
 - The curves are **hidden, never deleted**: change anything and finalize again.
   Modifiers and materials you add to the baked mesh survive a re-finalize.
 - **Detach Mesh** hands the mesh over to you for good.
+- A cable with no faces — two anchors in one place, say — is skipped with a
+  warning rather than baked into an empty object.
 
 ## Preferences
 
@@ -233,9 +246,12 @@ Turns a layer into a mesh for export.
 - **One collection per layer.** Everything Conduit makes goes under a
   `Conduit` collection, in a collection named after its layer, with its
   anchors, hub, targets and drop controllers in `<layer>_Controls`. Rename the
-  layer and its collection follows (unless you renamed the collection
-  yourself). The outliner button in the panel header tidies anything left
-  loose in the scene root. Things you filed in collections of your own are never moved.
+  layer and both collections follow (unless you renamed one yourself). Delete
+  the layer's collection and keep its contents, and new anchors still join
+  the same Controls. File everything somewhere of your own and Conduit leaves
+  it there — it doesn't bring back an empty collection. The outliner button
+  in the panel header tidies anything left loose in the scene root. Things
+  you filed in collections of your own are never moved.
 - **Removing a layer (−) removes everything it made**: its cables, anchors,
   hub and targets, fittings and clips. A **finalized mesh stays** — baked work
   is yours. So does an empty of your own that a layer only pointed at, and
@@ -245,6 +261,9 @@ Turns a layer into a mesh for export.
 - **Scene ▸ New ▸ Copy Settings** is safe: cleaning up the copy never deletes
   the original shot's cables.
 - Live preview pauses in Edit Mode.
+- **Pick**, **Pick Face** and **Draw Cable on Surface** start only in the 3D
+  viewport.
+- Hover any button or setting for a tooltip.
 
 ## Support
 
