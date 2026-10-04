@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 — 2026-10-03
+
+- Fan's Pick Face: the white dots that preview where the targets will land
+  now scale with your Resolution Scale, like the other on-screen overlays.
+
 ## 1.0.1 — 2026-10-03
 
 Polish.
